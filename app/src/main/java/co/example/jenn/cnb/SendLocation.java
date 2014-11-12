@@ -1,26 +1,11 @@
 package co.example.jenn.cnb;
 
 import android.app.Activity;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 
@@ -52,35 +37,7 @@ public class SendLocation extends Activity {
 
                     // \n is for new line
                     Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-                    JSONObject jsonobj = new JSONObject();
-                    try {
-                        jsonobj.put("lat", latitude);
-                        jsonobj.put("long", longitude);
-                        jsonobj.put("pass", "un1c0rn5");
 
-                    }
-                    catch (JSONException ex) {
-
-                        ex.printStackTrace();
-                    }
-                    try {
-                        DefaultHttpClient httpclient = new DefaultHttpClient();
-                        HttpPost httppostreq = new HttpPost("http://www.coffeenbeer.com/move");
-                        StringEntity se = new StringEntity(jsonobj.toString());
-                        se.setContentType("application/json;charset=UTF-8");
-                        se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
-                        httppostreq.setEntity(se);
-                        HttpResponse httpresponse = httpclient.execute(httppostreq);
-
-                        HttpEntity resEntity = httpresponse.getEntity();
-                        Log.i("RESPONSE", EntityUtils.toString(resEntity));
-                        if (resEntity != null) {
-                            Log.i("RESPONSE", EntityUtils.toString(resEntity));
-                        }
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
 
                 }else{
                     // can't get location
